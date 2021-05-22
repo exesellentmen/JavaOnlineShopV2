@@ -1,0 +1,101 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit article</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+
+<header th:insert="blocks/header.html :: header"></header>
+
+<script th:inline="javascript">
+    // var test = [[${post}]];
+    // console.log(test);
+</script>
+
+
+
+<div class="container mt-5 mb-5">
+    <h1>Edit article</h1>
+
+    <!--Выводим поля для редактирования всех свойств-->
+    <form method="post">
+        <th:block th:each="el : ${properties}">
+
+
+            <th:block th:switch="${el.type}">
+                <th:block th:case="'Timestamp'">
+                    <span th:text="${el.name}"></span><br>
+                    <input th:name="${el.name}" type="datetime-local" value="1985-04-12T23:20:50" class="form-control" th:value="${#strings.replace(el.value,' ','T')}" style="width: 300px;">
+                    <br>
+                </th:block>
+                <th:block th:case="'ActiveType'">
+                    <span th:text="${el.name}"></span><br>
+                    <select th:name="${el.name}" class="form-control"  th:value="${el.value}" style="width: 300px;">
+                        <th:block th:if="${el.value == 'Y'}">
+                            <option value="Y" selected>Y</option>
+                            <option value="N">N</option>
+                        </th:block>
+                        <th:block th:if="${el.value == 'N'}">
+                            <option value="Y">Y</option>
+                            <option value="N" selected>N</option>
+                        </th:block>
+                    </select>
+                    <br>
+                </th:block>
+                <th:block th:case="'String'">
+                    <span th:text="${el.name}"></span><br>
+                    <input type="text" th:value="${el.value}" th:name="${el.name}" placeholder="Введите название статьи" class="form-control" ><br>
+                </th:block>
+                <th:block th:case="'Long'">
+                    <span th:text="${el.name}"></span><br>
+                    <input type="text" th:value="${el.value}" th:name="${el.name}" placeholder="Введите название статьи" class="form-control" ><br>
+                </th:block>
+
+
+            </th:block>
+
+
+
+
+
+
+
+        </th:block>
+
+        <button type="submit" class="btn btn-success">Обновить</button>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Конец: Выводим поля для редактирования всех свойств-->
+
+
+<!--Старая версия вывода всех свойств-->
+<!--    <div th:each="el, stateq : ${post}" >-->
+<!--        <form method="post">-->
+<!--            <input type="text" th:value="${el.name}" name="title" placeholder="Введите название статьи" class="form-control" ><br>-->
+<!--            <input type="text" th:value="${el.sort}" name="anons" placeholder="Введите анонс статьи" class="form-control"><br>-->
+<!--            <textarea type="text" th:text="${el.timestampX}" name="full_text" placeholder="Введите полный текст статьи" class="form-control"/><br>-->
+<!--            <button type="submit" class="btn btn-success">Обновить</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+
+</div>
+
+<div th:insert="blocks/footer.html :: footer"></div>
+
+</body>
+</html>

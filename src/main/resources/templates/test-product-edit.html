@@ -1,0 +1,75 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Edit article</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link rel="stylesheet" href="https://getbootstrap.com/docs/5.0/dist/css/bootstrap.min.css" crossorigin="anonymous">
+</head>
+<body>
+
+<header th:insert="blocks/header.html :: header"></header>
+
+<script th:inline="javascript">
+    // var test = [[${post}]];
+    // console.log(test);
+</script>
+
+
+
+<div class="container mt-5 mb-5">
+    <h1>Edit article</h1>
+
+    <!--Вывод свойств-->
+    <form method="post">
+
+        <!--Перебор элементов массива и вывод его параметров-->
+        <th:block th:each="elem : ${newArq}">
+            <th:block th:text="${elem.get('VALUE')}"></th:block><br>
+            <th:block th:text="${elem.get('NAME')}"></th:block><br>
+            <th:block th:text="${elem.get('TYPE')}"></th:block><br><br>
+        </th:block>
+
+        <!--Перебор элементов связанной сущности, а именно ссылок на изображения-->
+        <th:block th:each="elem : ${productprop}">
+            <th:block th:each="elemq : ${elem.shopProductsImagesById}">
+                <th:block th:text="${elemq.url}">
+                </th:block><br>
+            </th:block>
+        </th:block>
+
+
+        <button type="submit" class="btn btn-success">Обновить</button>
+    </form>
+
+
+
+
+
+
+
+
+
+
+
+
+
+    <!--Конец: Выводим поля для редактирования всех свойств-->
+
+
+<!--Старая версия вывода всех свойств-->
+<!--    <div th:each="el, stateq : ${post}" >-->
+<!--        <form method="post">-->
+<!--            <input type="text" th:value="${el.name}" name="title" placeholder="Введите название статьи" class="form-control" ><br>-->
+<!--            <input type="text" th:value="${el.sort}" name="anons" placeholder="Введите анонс статьи" class="form-control"><br>-->
+<!--            <textarea type="text" th:text="${el.timestampX}" name="full_text" placeholder="Введите полный текст статьи" class="form-control"/><br>-->
+<!--            <button type="submit" class="btn btn-success">Обновить</button>-->
+<!--        </form>-->
+<!--    </div>-->
+
+
+</div>
+
+<div th:insert="blocks/footer.html :: footer"></div>
+
+</body>
+</html>
