@@ -22,22 +22,21 @@
     <!--Выводим поля для редактирования всех свойств-->
     <form method="post">
         <th:block th:each="el : ${properties}">
-
-
-            <th:block th:switch="${el.type}">
+            <th:block th:text="${el.get('TYPE')}"></th:block>
+            <th:block th:switch="${el.get('TYPE')}">
                 <th:block th:case="'Timestamp'">
-                    <span th:text="${el.name}"></span><br>
-                    <input th:name="${el.name}" type="datetime-local" value="1985-04-12T23:20:50" class="form-control" th:value="${#strings.replace(el.value,' ','T')}" style="width: 300px;">
+                    <span th:text="${el.get('NAME')}"></span><br>
+                    <input th:name="${el.get('NAME')}" type="datetime-local" value="1985-04-12T23:20:50" class="form-control" th:value="${#strings.replace(el.get('VALUE'),' ','T')}" style="width: 300px;">
                     <br>
                 </th:block>
                 <th:block th:case="'ActiveType'">
-                    <span th:text="${el.name}"></span><br>
-                    <select th:name="${el.name}" class="form-control"  th:value="${el.value}" style="width: 300px;">
-                        <th:block th:if="${el.value == 'Y'}">
+                    <span th:text="${el.get('NAME')}"></span><br>
+                    <select th:name="${el.get('NAME')}" class="form-control"  th:value="${el.get('VALUE')}" style="width: 300px;">
+                        <th:block th:if="${el.get('VALUE') == 'Y'}">
                             <option value="Y" selected>Y</option>
                             <option value="N">N</option>
                         </th:block>
-                        <th:block th:if="${el.value == 'N'}">
+                        <th:block th:if="${el.get('VALUE') == 'N'}">
                             <option value="Y">Y</option>
                             <option value="N" selected>N</option>
                         </th:block>
@@ -45,25 +44,15 @@
                     <br>
                 </th:block>
                 <th:block th:case="'String'">
-                    <span th:text="${el.name}"></span><br>
-                    <input type="text" th:value="${el.value}" th:name="${el.name}" placeholder="Введите название статьи" class="form-control" ><br>
+                    <span th:text="${el.get('NAME')}"></span><br>
+                    <input type="text" th:value="${el.get('VALUE')}" th:name="${el.get('NAME')}" placeholder="Введите название статьи" class="form-control" ><br>
                 </th:block>
                 <th:block th:case="'Long'">
-                    <span th:text="${el.name}"></span><br>
-                    <input type="text" th:value="${el.value}" th:name="${el.name}" placeholder="Введите название статьи" class="form-control" ><br>
+                    <span th:text="${el.get('NAME')}"></span><br>
+                    <input type="text" th:value="${el.get('VALUE')}" th:name="${el.get('NAME')}" placeholder="Введите название статьи" class="form-control" ><br>
                 </th:block>
-
-
             </th:block>
-
-
-
-
-
-
-
         </th:block>
-
         <button type="submit" class="btn btn-success">Обновить</button>
     </form>
 
@@ -85,7 +74,7 @@
 <!--Старая версия вывода всех свойств-->
 <!--    <div th:each="el, stateq : ${post}" >-->
 <!--        <form method="post">-->
-<!--            <input type="text" th:value="${el.name}" name="title" placeholder="Введите название статьи" class="form-control" ><br>-->
+<!--            <input type="text" th:value="${el.get('NAME')}" name="title" placeholder="Введите название статьи" class="form-control" ><br>-->
 <!--            <input type="text" th:value="${el.sort}" name="anons" placeholder="Введите анонс статьи" class="form-control"><br>-->
 <!--            <textarea type="text" th:text="${el.timestampX}" name="full_text" placeholder="Введите полный текст статьи" class="form-control"/><br>-->
 <!--            <button type="submit" class="btn btn-success">Обновить</button>-->

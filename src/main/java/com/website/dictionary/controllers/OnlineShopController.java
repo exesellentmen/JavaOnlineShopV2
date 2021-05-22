@@ -1,7 +1,6 @@
 package com.website.dictionary.controllers;
 
 import com.website.dictionary.helpers.CollectorProperties;
-import com.website.dictionary.helpers.StructureProperty;
 import com.website.dictionary.models.Qqproducts;
 import com.website.dictionary.models.ShopProducts;
 import com.website.dictionary.models.Testq;
@@ -91,7 +90,7 @@ public class OnlineShopController {
         //Добавление данных модели в массив res
         post.ifPresent(res::add);
 
-        // CollectorProperties.collect(Object) - Собираем все свойства и значения и формируем массив объектов для передачи во View
+        //Назначаем параметру массив свойств в виде ассоциативных массивов
         model.addAttribute("properties", CollectorProperties.collect(res.get(0)));
 
         //Передаем в шаблон объект post

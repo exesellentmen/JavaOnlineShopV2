@@ -8,16 +8,14 @@ import java.beans.Introspector;
 import java.beans.PropertyDescriptor;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Objects;
+import java.util.*;
 
 public class CollectorProperties {
 
     // Возвращаем свойства объекта в виде объектов(Name, Value, Type )
-    public static ArrayList<StructureProperty> collect(Object FromObject){
+    public static ArrayList<HashMap<String, String>> collect(Object FromObject){
 
-        ArrayList<StructureProperty> resq = new ArrayList<>();
+        ArrayList<HashMap<String, String>> res = new ArrayList<HashMap<String, String>>();
 
         try {
             //getBeanInfo() метод анализирует все свойства, методы и события объекта res
@@ -50,10 +48,7 @@ public class CollectorProperties {
                             TypeVar = "ActiveType";
                         }
 
-
-
-
-                        resq.add(new StructureProperty(propertyDescriptors[i].getName(), propertyValue.toString(), TypeVar));
+                        res.add(new HashMap<>(Map.of("NAME", propertyDescriptors[i].getName(), "VALUE", propertyValue.toString(),"TYPE", TypeVar)));
 
                         j++;
                     }
@@ -65,7 +60,8 @@ public class CollectorProperties {
         }catch (Exception e){
             //Handle your exception here.
         }
-        return resq;
+        return res;
+        //return resq;
     }
 
     //Устанавливаем все свойства объекту из Post Запроса
